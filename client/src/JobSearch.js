@@ -34,7 +34,14 @@ class JobSearch {
 
       fetch(
         `http://localhost:3000/?search=${search}&locaton=${location}&country=${this.countryCode}`
-      );
+      )
+        .then((response) => response.json())
+        .then(({ results }) => {
+          return results
+            .map((job) => jobTemplate(job, this.currencySymbol))
+            .join("");
+        })
+        .then((jobs) => (this.resultsContainer.innerHTML = jobs));
     });
   }
 }
