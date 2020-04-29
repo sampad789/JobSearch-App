@@ -1,0 +1,36 @@
+header {
+  padding: 50px;
+  background-image: url(../img/business.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 400px;
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  form {
+    margin-top: 50px;
+    max-width: 400px;
+  }
+  .form-control {
+    margin-top: 5px;
+  }
+  .btn {
+    margin-top: 10px;
+  }
+}
+
+.card {
+  margin: 25px, 0;
+}
+
+.loading-element {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  display: none;
+  &.loading {
+    display: block;
+  }
+}

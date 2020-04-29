@@ -1,6 +1,7 @@
-import { getCurrencySymbol, extractFormData } from "./utils";
+import { jobTemplate } from "./templates";
+import { extractFormData, getCurrencySymbol } from "./utils";
 
-class JobSearch {
+export class JobSearch {
   constructor(
     searchFormSelector,
     resultsContainerSelector,
@@ -13,35 +14,50 @@ class JobSearch {
 
   setCountryCode() {
     this.countryCode = "gb";
-    this.setCurrencyCode();
-    fetch("http://ip-api/json")
+    this.setCurrencySymbol();
+
+    fetch("http://ip-api.com/json")
       .then((results) => results.json())
       .then((results) => {
-        this.countryCode = results.countryCode.toLowercase();
+        this.countryCode = results.countryCode.toLowerCase();
         this.setCurrencySymbol();
       });
   }
 
-  setCurrencyCode() {
+  setCurrencySymbol() {
     this.currencySymbol = getCurrencySymbol(this.countryCode);
   }
 
   configureFormListener() {
     this.searchForm.addEventListener("submit", (event) => {
       event.preventDefault();
+      this.startLoading();
       this.resultsContainer.innerHTML = "";
       const { search, location } = extractFormData(this.searchForm);
-
       fetch(
-        `http://localhost:3000/?search=${search}&locaton=${location}&country=${this.countryCode}`
+        `http://localhost:8000/?search=${search}&location=${location}&country=${this.countryCode}`
       )
         .then((response) => response.json())
         .then(({ results }) => {
+          this.stopLoading();
           return results
             .map((job) => jobTemplate(job, this.currencySymbol))
             .join("");
         })
-        .then((jobs) => (this.resultsContainer.innerHTML = jobs));
+        .then((jobs) => (this.resultsContainer.innerHTML = jobs))
+        .catch(() => this.stopLoading() & this.sendServerAlert());
     });
+  }
+
+  startLoading() {
+    this.loadingElement.classList.add("loading");
+  }
+
+  stopLoading() {
+    this.loadingElement.classList.remove("loading");
+  }
+
+  sendServerAlert() {
+    alert("Server Failure ,Please Try Again Later. Thanks!");
   }
 }

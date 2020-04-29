@@ -11,11 +11,11 @@ export const getCurrencySymbol = (countryCode) => {
     nl: "€",
     pl: "€",
   };
-  return currencies(countryCode);
+  return currencies[countryCode];
 };
 
 export const extractFormData = (form) =>
-  Array.from(from.elements).reduce(
+  Array.from(form.elements).reduce(
     (acc, { id, value }) => ({ ...acc, [id]: value }),
     {}
   );

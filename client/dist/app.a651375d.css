@@ -1,0 +1,36 @@
+header {
+  padding: 50px;
+  background-image: url(/business.642803c6.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 400px;
+}
+header h2 {
+  font-size: 1.4rem;
+}
+header form {
+  margin-top: 50px;
+  max-width: 400px;
+}
+header .form-control {
+  margin-top: 5px;
+}
+header .btn {
+  margin-top: 10px;
+}
+
+.card {
+  margin: 25px, 0;
+}
+
+.loading-element {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  display: none;
+}
+.loading-element.loading {
+  display: block;
+}
+
+/*# sourceMappingURL=/app.a651375d.css.map */
